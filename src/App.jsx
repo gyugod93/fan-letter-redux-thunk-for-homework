@@ -1,15 +1,11 @@
-// import logo from "./logo.svg";
-import "./App.css";
-import Header from "./components/Header/Header";
-import Main from "./components/Main";
-import Footer from "./components/Footer";
+import Router from "shared/Router";
+import GlobalStyle from "GlobalStyle";
 
 function App() {
   return (
     <>
-      <Header />
-      <Main />
-      <Footer />
+      <GlobalStyle />
+      <Router />
     </>
   );
 }
