@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { FamilyContext } from "shared/context/FamilyContext";
 
 function DetailPages({ letters, setLetters }) {
+  const data = useContext(FamilyContext);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState("");
   const params = useParams();
-  const findLetters = letters.find((letter) => letter.id === params.id);
+  const findLetters = data.letters.find((letter) => letter.id === params.id);
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -14,10 +16,10 @@ function DetailPages({ letters, setLetters }) {
     const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
 
     if (confirmDelete) {
-      const updatedLetters = letters.filter(
+      const updatedLetters = data.letters.filter(
         (letter) => letter.id !== params.id
       );
-      setLetters(updatedLetters);
+      data.setLetters(updatedLetters);
       navigate("/");
     }
   };
@@ -32,10 +34,10 @@ function DetailPages({ letters, setLetters }) {
       alert("아무런 수정사항이 없습니다.");
       setIsEditing(false);
     } else {
-      const updatedLetters = letters.map((letter) =>
+      const updatedLetters = data.letters.map((letter) =>
         letter.id === params.id ? { ...letter, content: editedContent } : letter
       );
-      setLetters(updatedLetters);
+      data.setLetters(updatedLetters);
       setIsEditing(false);
       navigate("/");
     }

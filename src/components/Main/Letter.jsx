@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { FamilyContext } from "shared/context/FamilyContext";
 
-function EmptyLetter({ letters, selectMember }) {
+function Letter({ letters, selectMember }) {
+  const data = useContext(FamilyContext);
   const navigate = useNavigate();
   const goToDetailPage = (id) => {
     navigate(`/detailPages/${id}`);
@@ -17,14 +19,14 @@ function EmptyLetter({ letters, selectMember }) {
 
   return (
     <MainLetter>
-      {letters.filter((letter) => letter.member === selectMember).length ===
-        0 && (
+      {data.letters.filter((letter) => letter.member === data.selectMember)
+        .length === 0 && (
         <div>
           남겨진 팬레터가 없습니다. 첫 번째 팬레터의 주인공이 되어주세요!
         </div>
       )}
-      {letters
-        .filter((letter) => letter.member === selectMember)
+      {data.letters
+        .filter((letter) => letter.member === data.selectMember)
         .map((letter) => {
           return (
             <div
@@ -109,4 +111,4 @@ const Content = styled.p`
   text-align: center;
   line-height: 2;
 `;
-export default EmptyLetter;
+export default Letter;

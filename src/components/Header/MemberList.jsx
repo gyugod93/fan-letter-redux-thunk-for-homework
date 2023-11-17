@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { FamilyContext } from "shared/context/FamilyContext";
 
 function MemberList({ selectMember, setSelectMember }) {
+  const data = useContext(FamilyContext);
   const members = [
     { id: 0, name: "이찬혁" },
     { id: 1, name: "이수현" },
@@ -13,14 +15,14 @@ function MemberList({ selectMember, setSelectMember }) {
         return (
           <StyledBtn
             key={member.id}
-            $select={selectMember}
+            $select={data.selectMember}
             id={member.id}
             // style={{
             //   backgroundColor:
             //     selectedMemberId === member.id ? "green" : "white",
             // }}
             onClick={() => {
-              setSelectMember(member.id);
+              data.setSelectMember(member.id);
             }}
           >
             {member.name}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Input from "./Input";
 import Letter from "./Letter";
 
-function Main({ setSelectMember, selectMember, letters, setLetters }) {
+function Main() {
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
 
@@ -23,12 +23,8 @@ function Main({ setSelectMember, selectMember, letters, setLetters }) {
         setNickname={setNickname}
         content={content}
         setContent={setContent}
-        selectMember={selectMember}
-        setSelectMember={setSelectMember}
-        letters={letters}
-        setLetters={setLetters}
       />
-      <Letter letters={letters} selectMember={selectMember} />
+      <Letter />
 
       {/* <ul>
         {fakeData.map((item) => (
