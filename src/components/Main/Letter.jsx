@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FamilyContext } from "shared/context/FamilyContext";
 
-function Letter({ letters, selectMember }) {
-  const data = useContext(FamilyContext);
+function Letter() {
+  const letters = useSelector((state) => state.letters.letters);
+  const selectMember = useSelector(
+    (state) => state.selectMember.selectMemberId
+  );
+
   const navigate = useNavigate();
   const goToDetailPage = (id) => {
     navigate(`/detailPages/${id}`);
@@ -19,14 +23,14 @@ function Letter({ letters, selectMember }) {
 
   return (
     <MainLetter>
-      {data.letters.filter((letter) => letter.member === data.selectMember)
-        .length === 0 && (
+      {letters.filter((letter) => letter.member === selectMember).length ===
+        0 && (
         <div>
           남겨진 팬레터가 없습니다. 첫 번째 팬레터의 주인공이 되어주세요!
         </div>
       )}
-      {data.letters
-        .filter((letter) => letter.member === data.selectMember)
+      {letters
+        .filter((letter) => letter.member === selectMember)
         .map((letter) => {
           return (
             <div

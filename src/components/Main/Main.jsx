@@ -1,29 +1,13 @@
 // import React, { useEffect } from "react";
 // import fakeData from "fakeData.json";
-import { useState } from "react";
+import React from "react";
 import Input from "./Input";
 import Letter from "./Letter";
 
-function Main() {
-  const [nickname, setNickname] = useState("");
-  const [content, setContent] = useState("");
-
-  // useEffect(() => {
-  //   console.log("Letters after adding:", letters);
-  // }, [letters]);
-
-  // const filteredLetters = letters.filter(
-  //   (letter) => letter.Id === selectedMemberId
-  // );
-
+const Main = () => {
   return (
     <>
-      <Input
-        nickname={nickname}
-        setNickname={setNickname}
-        content={content}
-        setContent={setContent}
-      />
+      <Input />
       <Letter />
 
       {/* <ul>
@@ -37,6 +21,6 @@ function Main() {
       </ul> */}
     </>
   );
-}
+};
 
 export default Main;

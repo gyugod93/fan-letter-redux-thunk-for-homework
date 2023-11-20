@@ -1,9 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { FamilyContext } from "shared/context/FamilyContext";
+import { useDispatch, useSelector } from "react-redux";
+import { choiseMember } from "redux/modules/selectMember";
 
-function MemberList({ selectMember, setSelectMember }) {
-  const data = useContext(FamilyContext);
+function MemberList() {
+  const selectMember = useSelector(
+    (state) => state.selectMember.selectMemberId
+  );
+  const dispatch = useDispatch();
+
   const members = [
     { id: 0, name: "이찬혁" },
     { id: 1, name: "이수현" },
@@ -15,14 +20,16 @@ function MemberList({ selectMember, setSelectMember }) {
         return (
           <StyledBtn
             key={member.id}
-            $select={data.selectMember}
+            $select={selectMember}
             id={member.id}
             // style={{
             //   backgroundColor:
             //     selectedMemberId === member.id ? "green" : "white",
             // }}
             onClick={() => {
-              data.setSelectMember(member.id);
+              console.log(member.id, typeof member.id);
+              //색깔이 변하게
+              dispatch(choiseMember(member.id));
             }}
           >
             {member.name}

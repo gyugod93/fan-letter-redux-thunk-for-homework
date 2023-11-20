@@ -1,21 +1,23 @@
-import React, { useContext } from "react";
+import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
-import { FamilyContext } from "shared/context/FamilyContext";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addLetters } from "redux/modules/letters";
+import { choiseMember } from "redux/modules/selectMember";
 
-function Input({
-  nickname,
-  setNickname,
-  content,
-  setContent,
-  selectMember,
-  setSelectMember,
-  setLetters,
-}) {
-  const data = useContext(FamilyContext);
+function Input() {
+  const [nickname, setNickname] = useState("");
+  const [content, setContent] = useState("");
+
+  const selectMember = useSelector(
+    (state) => state.selectMember.selectMemberId
+  );
+  const dispatch = useDispatch();
+
   const addLetterHandler = (e) => {
     e.preventDefault();
-    if (data.nickname.trim() && data.content.trim()) {
+    if (nickname.trim() && content.trim()) {
       const newLetter = {
         profileImage:
           "https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png",
@@ -26,9 +28,10 @@ function Input({
         content,
       };
       //새로운 방식으로 만듬 함수형으로
-      data.setLetters((prev) => [...prev, newLetter]);
-      data.setNickname("");
-      data.setContent("");
+
+      dispatch(addLetters(newLetter));
+      setNickname("");
+      setContent("");
     } else {
       alert("닉네임과 내용 모두 입력해주세요");
     }
@@ -44,7 +47,7 @@ function Input({
             value={nickname}
             onChange={(e) => {
               if (e.target.value.length <= 20) {
-                data.setNickname(e.target.value);
+                setNickname(e.target.value);
               }
             }}
             placeholder="최대 20글자까지 작성할 수 있습니다."
@@ -56,7 +59,7 @@ function Input({
             value={content}
             onChange={(e) => {
               if (e.target.value.length <= 100) {
-                data.setContent(e.target.value);
+                setContent(e.target.value);
               }
             }}
             placeholder="최대 100자까지만 작성할 수 있습니다."
@@ -66,7 +69,13 @@ function Input({
           누구에게 보내실 건가요? {/* 고민좀해보자 */}
           <select
             value={selectMember}
-            onChange={(e) => data.setSelectMember(Number(e.target.value))}
+            onChange={(e) => {
+              console.log(
+                Number(e.target.value),
+                typeof Number(e.target.value)
+              );
+              dispatch(choiseMember(Number(e.target.value)));
+            }}
           >
             <option value={0}>이찬혁</option>
             <option value={1}>이수현</option>
