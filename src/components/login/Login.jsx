@@ -18,8 +18,6 @@ function Login() {
   const nicknameRegex = /^.{1,10}$/;
   const [tokenExpiration, setTokenExpiration] = useState(null);
 
-  const validateTokenURL = "https://moneyfulpublicpolicy.co.kr/validateToken";
-
   const fetchSignUp = async () => {
     const { data } = await axios.get("http://localhost:4000/signUp");
     setUserList(data);

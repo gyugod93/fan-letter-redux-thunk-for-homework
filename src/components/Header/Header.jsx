@@ -1,10 +1,8 @@
 import React from "react";
 import MemberList from "./MemberList";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const navigate = useNavigate();
   return (
     <>
       <BackgroundImage>

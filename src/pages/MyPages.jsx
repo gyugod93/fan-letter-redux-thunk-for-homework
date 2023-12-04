@@ -1,7 +1,4 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
 function MyPages() {
   const user = JSON.parse(localStorage.getItem("userInfo"));

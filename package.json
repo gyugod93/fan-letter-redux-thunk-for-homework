@@ -30,6 +30,9 @@
     "eject": "react-scripts eject",
     "heroku-postbuild": "cross-env NODE_PATH=src npm run build"
   },
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

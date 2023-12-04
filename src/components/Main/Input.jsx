@@ -22,7 +22,6 @@ function Input() {
   const [inputContent, setInputContent] = useState({
     content: "",
   });
-  const [editMode, setEditMode] = useState(false);
   const [editingContent, setEditingContent] = useState({
     id: "",
     content: "",
@@ -67,71 +66,13 @@ function Input() {
     }
   };
 
-  const onDeleteButtonClickHandler = async (id) => {
-    await axios.delete(`http://localhost:4000/letters/${id}`);
-    console.log(id);
-    dispatch(deleteLetter(id));
-  };
-
   const addLetterHandler = (e) => {
     e.preventDefault();
     onSubmitHandler();
   };
 
-  const onEditButtonClickHandler = (id, content) => {
-    setEditMode(true);
-    setEditingContent({ id, content });
-  };
-
-  const onUpdateButtonClickHandler = async () => {
-    await axios.patch(`http://localhost:4000/letters/${editingContent.id}`, {
-      content: editingContent.content,
-    });
-    dispatch(
-      __addLetter({ ...editingContent, createAt: new Date().toLocaleString() })
-    );
-    setEditMode(false);
-    setEditingContent({ id: "", content: "" });
-  };
-
   return (
     <>
-      {/* {letters?.map((item, index) => {
-        return (
-          <div key={index}>
-            <div>{item.avatar}</div>
-            <div>작성자 : {nickname}</div>
-            <div>{item.createAt}</div>
-            <div>{item.content}</div>
-
-            <>
-              <button onClick={() => onDeleteButtonClickHandler(item.id)}>
-                삭제
-              </button>
-              <button
-                onClick={() => onEditButtonClickHandler(item.id, item.content)}
-              >
-                수정
-              </button>
-            </>
-          </div>
-        );
-      })}
-      {editMode && (
-        <div>
-          <textarea
-            value={editingContent.content}
-            onChange={(e) =>
-              setEditingContent((prev) => ({
-                ...prev,
-                content: e.target.value,
-              }))
-            }
-            placeholder="최대 100자까지만 작성할 수 있습니다."
-          />
-          <button onClick={onUpdateButtonClickHandler}>수정 완료</button>
-        </div>
-      )} */}
       <InputStyle>
         <form onSubmit={addLetterHandler}>
           <div>
