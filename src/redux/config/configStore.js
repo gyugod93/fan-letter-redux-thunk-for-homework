@@ -1,14 +1,10 @@
-// store.js
-import { combineReducers, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore } from "@reduxjs/toolkit";
 import selectMember from "redux/modules/selectMember";
 import letters from "redux/modules/letters";
+import auth from "redux/modules/authSlice";
 
-const rootReducer = combineReducers({
-  selectMember,
-  letters,
+const store = configureStore({
+  reducer: { selectMember, letters, auth },
 });
-
-const store = createStore(rootReducer, composeWithDevTools());
 
 export default store;

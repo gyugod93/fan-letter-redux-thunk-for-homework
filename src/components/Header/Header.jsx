@@ -1,8 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import MemberList from "./MemberList";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import Layout from "./Layout";
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <>
       <BackgroundImage>

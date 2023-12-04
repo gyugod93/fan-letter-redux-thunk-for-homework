@@ -1,25 +1,14 @@
-const initialState = {
-  selectMemberId: 0,
-};
+import { createSlice } from "@reduxjs/toolkit";
 
-const SET_SELECT_MEMBER = "selectMember/SET_SELECT_MEMBER";
+const selectMemberSlice = createSlice({
+  name: "selectMember",
+  initialState: { selectMemberId: 0 },
+  reducers: {
+    choiseMember: (state, action) => {
+      state.selectMemberId = action.payload;
+    },
+  },
+});
 
-export function choiseMember(payload) {
-  return {
-    type: SET_SELECT_MEMBER,
-    payload: payload,
-  };
-}
-
-const selectMember = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_SELECT_MEMBER:
-      console.log(action.payload);
-      return { ...state, selectMemberId: action.payload };
-
-    default:
-      return state;
-  }
-};
-
-export default selectMember;
+export const { choiseMember } = selectMemberSlice.actions;
+export default selectMemberSlice.reducer;

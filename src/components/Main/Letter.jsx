@@ -1,36 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+import { __deleteLetter, __fetchLetters } from "redux/modules/letters";
 
-function Letter() {
+function Letter({ inputContent }) {
   const letters = useSelector((state) => state.letters.letters);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const selectMember = useSelector(
     (state) => state.selectMember.selectMemberId
   );
 
-  const navigate = useNavigate();
+  const userInfo = localStorage.getItem("userInfo");
+  const { id, avatar, nickname, accessToken } = JSON.parse(userInfo);
+  useEffect(() => {
+    dispatch(__fetchLetters());
+  }, [dispatch]);
+  const { isLoading, isError, error } = useSelector((state) => state.letters);
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  const newLetterData = {
+    ...inputContent,
+    id: uuidv4(),
+    nickname,
+    avatar,
+    userId: id,
+    writedTo: selectMember,
+    createAt: new Date().toLocaleString(),
+  };
+
   const goToDetailPage = (id) => {
     navigate(`/detailPages/${id}`);
   };
-  const removeText = (text, maxLength) => {
-    if (text.length <= maxLength) {
-      return text;
-    } else {
-      return text.substring(0, maxLength).trim() + "...";
-    }
+  const onDeleteButtonClickHandler = async (id) => {
+    await axios.delete(`http://localhost:4000/letters/${id}`);
+    console.log(id);
+    dispatch(__deleteLetter(id));
   };
 
   return (
     <MainLetter>
-      {letters.filter((letter) => letter.member === selectMember).length ===
+      {letters.filter((letter) => letter.writedTo === selectMember).length ===
         0 && (
         <div>
           남겨진 팬레터가 없습니다. 첫 번째 팬레터의 주인공이 되어주세요!
         </div>
       )}
       {letters
-        .filter((letter) => letter.member === selectMember)
+        .filter((letter) => letter.writedTo === selectMember)
         .map((letter) => {
           return (
             <div
@@ -40,13 +67,15 @@ function Letter() {
             >
               <LetterItem>
                 <Section>
-                  <img src={letter.profileImage} alt="" />
+                  <img src={letter.avatar} alt="" />
                   <div>
-                    <p>{letter.nickname}</p>
-                    <p>{letter.createdAt}</p>
+                    <p>작성자 : {letter.nickname}</p>
+                    <p>{letter.createAt}</p>
                   </div>
                 </Section>
-                <Content>{removeText(letter.content, 40)}</Content>
+                <Content>
+                  <p>{letter.content}</p>
+                </Content>
               </LetterItem>
             </div>
           );
@@ -88,6 +117,9 @@ const LetterItem = styled.li`
 
   &:hover {
     transform: scale(1.03);
+  }
+  button {
+    margin-top: 25px;
   }
 `;
 

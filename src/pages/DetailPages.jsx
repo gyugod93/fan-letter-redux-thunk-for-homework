@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteLetters, editedLetters } from "redux/modules/letters";
+import { deleteLetter, editedLetter } from "redux/modules/letters";
+import axios from "axios";
 
 function DetailPages() {
   const dispatch = useDispatch();
@@ -13,14 +14,21 @@ function DetailPages() {
 
   const params = useParams();
   const findLetters = letters.find((letter) => letter.id === params.id);
+  console.log(findLetters);
+  console.log(params);
   const navigate = useNavigate();
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
 
     if (confirmDelete) {
-      dispatch(deleteLetters(params.id));
-      navigate("/");
+      try {
+        await axios.delete(`http://localhost:4000/letters/${params.id}`);
+        dispatch(deleteLetter(params.id));
+        navigate("/mainPages");
+      } catch (error) {
+        console.error("삭제 중 에러:", error);
+      }
     }
   };
 
@@ -35,15 +43,19 @@ function DetailPages() {
       setIsEditing(false);
     } else {
       dispatch(
-        editedLetters({
+        editedLetter({
           id: params.id,
           content: editedContent,
         })
       );
       setIsEditing(false);
-      navigate("/");
+      navigate("/mainPages");
     }
   };
+
+  // useEffect(() => {
+  //   setEditedContent(findLetters.content);
+  // }, [findLetters.content]);
 
   return (
     <>

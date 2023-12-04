@@ -1,19 +1,32 @@
 {
-  "posts": [
+  "signUp": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "id": "1111",
+      "password": "1111",
+      "nickname": "1"
+    },
+    {
+      "id": "11111",
+      "password": "11111",
+      "nickname": "1"
     }
   ],
-  "comments": [
+  "letters": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "content": "111",
+      "id": "2fd3ba83-4de2-4a2e-9d54-51a78e95fb0b",
+      "nickname": "자살개구리",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/5879b2df-cba2-4e9b-9c8d-175293699ce3.jpg",
+      "writedTo": 0,
+      "createAt": "2023. 12. 4. 오전 11:29:20"
+    },
+    {
+      "content": "ㅎㅇㅎㅇ",
+      "id": "f3e016a8-499c-4480-8f86-53ddad6988ba",
+      "nickname": "자살개구리",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/5879b2df-cba2-4e9b-9c8d-175293699ce3.jpg",
+      "writedTo": 0,
+      "createAt": "2023. 12. 4. 오전 11:46:51"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
