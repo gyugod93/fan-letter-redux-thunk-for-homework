@@ -6,7 +6,7 @@ import MainPages from "pages/MainPages";
 import store from "redux/config/configStore";
 import LoginPages from "pages/LoginPages";
 import MyPages from "pages/MyPages";
-import Layout from "components/header/Layout";
+import Layout from "./components/header/Layout";
 
 const Router = () => {
   return (
