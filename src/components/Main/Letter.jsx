@@ -41,8 +41,6 @@ function Letter() {
               <LetterItem>
                 <Section>
                   <img src={letter.profileImage} alt="" />
-                  {/* <p>{letter.member}</p>
-              <br /> */}
                   <div>
                     <p>{letter.nickname}</p>
                     <p>{letter.createdAt}</p>

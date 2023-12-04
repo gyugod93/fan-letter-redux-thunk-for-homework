@@ -22,13 +22,7 @@ function MemberList() {
             key={member.id}
             $select={selectMember}
             id={member.id}
-            // style={{
-            //   backgroundColor:
-            //     selectedMemberId === member.id ? "green" : "white",
-            // }}
             onClick={() => {
-              console.log(member.id, typeof member.id);
-              //색깔이 변하게
               dispatch(choiseMember(member.id));
             }}
           >
@@ -61,35 +55,3 @@ const Container = styled.div`
 `;
 
 export default MemberList;
-
-// MemberList.jsx
-
-// import React from "react";
-// import styled from "styled-components";
-
-// function MemberList({ onSelectMember }) {
-//   const members = [
-//     { id: 1, name: "이찬혁" },
-//     { id: 2, name: "이수현" },
-//   ];
-
-//   const StyledBtn = styled.button`
-//     background-color: ${(props) => (props.selected ? "yellow" : "white")};
-//   `;
-
-//   return (
-//     <>
-//       {members.map((member) => (
-//         <StyledBtn
-//           key={member.id}
-//           selected={false}
-//           onClick={() => onSelectMember(member.name)}
-//         >
-//           {member.name}
-//         </StyledBtn>
-//       ))}
-//     </>
-//   );
-// }
-
-// export default MemberList;

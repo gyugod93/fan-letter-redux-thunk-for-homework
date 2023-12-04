@@ -9,16 +9,6 @@ const Main = () => {
     <>
       <Input />
       <Letter />
-
-      {/* <ul>
-        {fakeData.map((item) => (
-          <li key={item.id}>
-            <div>{item.nickname}</div>
-            <div>{item.createdAt}</div>
-            <div>{removeText(item.content, 40)}</div>
-          </li>
-        ))}
-      </ul> */}
     </>
   );
 };

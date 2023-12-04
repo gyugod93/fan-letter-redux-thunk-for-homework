@@ -2,13 +2,13 @@ const initialState = {
   letters: [],
 };
 
-const SET_LETTERS = "letters/SET_LETTERS";
+const ADD_LETTERS = "letters/ADD_LETTERS";
 const DELETE_LETTER = "letters/DELETE_LETTER";
 const EDITED_LETTER = "letters/EDITED_LETTER";
 
 export function addLetters(payload) {
   return {
-    type: SET_LETTERS,
+    type: ADD_LETTERS,
     payload,
   };
 }
@@ -29,7 +29,7 @@ export function editedLetters(payload) {
 
 const letters = (state = initialState, action) => {
   switch (action.type) {
-    case SET_LETTERS:
+    case ADD_LETTERS:
       console.log(action);
       return { ...state, letters: [...state.letters, action.payload] };
 
